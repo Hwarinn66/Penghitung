@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+.pytest_cache/
+pytest-of-root/
+*.pyc
+models/*.pt
+output/*
+!output/.gitkeep
+debug/*
+!debug/.gitkeep
+runs/
+dataset_tiles*/
+dataset/images/*/*
+dataset/labels/*/*
+!**/.gitkeep
