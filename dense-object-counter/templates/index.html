@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dense Object Counter</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body data-poll-ms="{{ poll_ms }}">
+<div class="app-shell">
+<header><div class="brand"><span class="brand-icon" aria-hidden="true">▦</span><div><p class="eyebrow">VISION WORKSTATION / 01</p><h1>DENSE OBJECT COUNTER</h1></div></div><div class="camera-status"><span id="statusDot" class="dot disconnected"></span><div><small>Camera</small><strong id="cameraStatus">DISCONNECTED</strong></div></div></header>
+<div class="intro"><div><h2>Setiap benda. Satu hitungan.</h2><p>Sebarkan benda di dalam ROI, tunggu hingga diam, lalu tekan HITUNG.</p></div><span class="tag">SNAPSHOT COUNTING</span></div>
+<div id="connectionError" class="notice error" hidden></div><div id="systemNotice" class="notice" hidden></div>
+<main>
+<section class="panel camera-panel"><div class="panel-heading"><h3><span class="live-dot"></span> Live camera</h3><span id="liveResolution" class="mono">— × —</span></div>
+<div class="camera-stage"><img id="liveCamera" src="/video_feed" alt="Preview kamera dengan batas Counting ROI"><span class="stage-label">PREVIEW · AI BERJALAN SAAT HITUNG</span></div>
+<div class="camera-footer"><span><i class="roi-key"></i> Counting ROI</span><span>Alas {{ physical_tray[0]|int }} × {{ physical_tray[1]|int }} cm · Target ROI {{ effective_area[0]|int }} × {{ effective_area[1]|int }} cm</span></div></section>
+<aside class="panel controls"><div class="panel-heading"><h3>Hasil penghitungan</h3><span id="resultState" class="tag muted">BELUM DIHITUNG</span></div>
+<div class="count-display" aria-live="polite"><span class="eyebrow">DETECTED OBJECTS</span><div><strong id="countValue">—</strong><span class="unit">{{ unit }}</span></div><p id="countCaption">Siapkan benda di area counting.</p></div>
+<button id="countButton" class="button primary" disabled><span aria-hidden="true">⊞</span> <span id="countLabel">HITUNG</span></button><button id="resetButton" class="button secondary">RESET</button>
+<dl class="metrics"><div><dt>Total processing time</dt><dd id="processingTime">—</dd></div><div><dt>Snapshot resolution</dt><dd id="snapshotResolution">—</dd></div><div><dt>Detector</dt><dd id="detectorName">—</dd></div><div><dt>Tiles / snapshot source</dt><dd id="tileInfo">—</dd></div></dl>
+<p class="hint">Live preview untuk monitoring. Hasil hanya diperbarui setelah snapshot dihitung.</p></aside>
+<section class="panel result-panel"><div class="panel-heading"><div><h3>Verifikasi hasil</h3><p>Periksa bounding box dan nomor setiap benda.</p></div><a id="fullImageLink" class="text-link" target="_blank" rel="noopener" hidden>Buka resolusi penuh ↗</a></div>
+<div id="resultWarning" class="notice result-warning" hidden></div><div id="resultEmpty" class="empty-state"><div class="empty-icon" aria-hidden="true">▦</div><h4>Snapshot hasil akan muncul di sini</h4><p>Nomor 1 hingga jumlah akhir membantu Anda memeriksa setiap detection.</p></div>
+<div id="resultContainer" class="result-image-wrap" hidden><img id="resultImage" alt="Snapshot hasil dengan bounding box dan nomor setiap objek"></div><details id="timingDetails" hidden><summary>Rincian waktu dan ROI</summary><pre id="timingText"></pre></details></section>
+</main><footer><span>DENSE OBJECT COUNTER <span class="version">/ MVP 1.0</span></span><span>Top-down camera · Single class · Local inference</span></footer>
+</div></body></html>
